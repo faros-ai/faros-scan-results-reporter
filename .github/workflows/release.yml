@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish-events-cli:
+    name: Publish Faros Scan Results Reporter image
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2.3.4
+
+      # GITHUB_REF looks like: refs/tags/v0.2.5
+      # ${GITHUB_REF:10} ignores the first 10 characters leaving v0.2.5
+      - name: Generate image tags
+        id: gen-tags
+        env:
+          IMAGE: farosai/faros-scan-results-reporter
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          TAG="${GITHUB_REF:10}"
+          TAG_VERSION="${TAG//v/}"
+          echo "LATEST_TAG=$IMAGE:latest" >> "$GITHUB_ENV"
+          echo "COMMIT_SHA_TAG=$IMAGE:$COMMIT_SHA" >> "$GITHUB_ENV"
+          echo "VERSION_TAG=$IMAGE:$TAG_VERSION" >> "$GITHUB_ENV"
+
+      - name: Docker login
+        uses: docker/login-action@v1.10.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Publish Events CLI image
+        run: |
+          docker build . -t $LATEST_TAG \
+          -t $VERSION_TAG \
+          docker push $LATEST_TAG && \
+          docker push $COMMIT_SHA_TAG && \
+          docker push $VERSION_TAG

@@ -1,0 +1,352 @@
+{
+    "errors": [
+      {
+        "code": 3,
+        "level": "warn",
+        "message": "Syntax error at line .github/workflows/ci-cd.yml:146:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ env.DEV_ECR_REGISTRY` was unexpected",
+        "path": ".github/workflows/ci-cd.yml",
+        "spans": [
+          {
+            "end": {"col": 31, "line": 146, "offset": 3943},
+            "file": ".github/workflows/ci-cd.yml",
+            "start": {"col": 9, "line": 146, "offset": 3921}
+          },
+          {
+            "end": {"col": 32, "line": 147, "offset": 3944},
+            "file": ".github/workflows/ci-cd.yml",
+            "start": {"col": 9, "line": 147, "offset": 3921}
+          }
+        ],
+        "type": [
+          "PartialParsing",
+          [
+            {
+              "end": {"col": 31, "line": 146, "offset": 3943},
+              "path": ".github/workflows/ci-cd.yml",
+              "start": {"col": 9, "line": 146, "offset": 3921}
+            },
+            {
+              "end": {"col": 32, "line": 147, "offset": 3944},
+              "path": ".github/workflows/ci-cd.yml",
+              "start": {"col": 9, "line": 147, "offset": 3921}
+            }
+          ]
+        ]
+      },
+      {
+        "code": 3,
+        "level": "warn",
+        "message": "Syntax error at line .github/workflows/release.yml:68:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+        "path": ".github/workflows/release.yml",
+        "spans": [
+          {
+            "end": {"col": 81, "line": 68, "offset": 1911},
+            "file": ".github/workflows/release.yml",
+            "start": {"col": 78, "line": 68, "offset": 1908}
+          },
+          {
+            "end": {"col": 19, "line": 71, "offset": 1911},
+            "file": ".github/workflows/release.yml",
+            "start": {"col": 16, "line": 71, "offset": 1908}
+          },
+          {
+            "end": {"col": 54, "line": 72, "offset": 1922},
+            "file": ".github/workflows/release.yml",
+            "start": {"col": 40, "line": 72, "offset": 1908}
+          }
+        ],
+        "type": [
+          "PartialParsing",
+          [
+            {
+              "end": {"col": 81, "line": 68, "offset": 1911},
+              "path": ".github/workflows/release.yml",
+              "start": {"col": 78, "line": 68, "offset": 1908}
+            },
+            {
+              "end": {"col": 19, "line": 71, "offset": 1911},
+              "path": ".github/workflows/release.yml",
+              "start": {"col": 16, "line": 71, "offset": 1908}
+            },
+            {
+              "end": {"col": 54, "line": 72, "offset": 1922},
+              "path": ".github/workflows/release.yml",
+              "start": {"col": 40, "line": 72, "offset": 1908}
+            }
+          ]
+        ]
+      },
+      {
+        "code": 3,
+        "level": "warn",
+        "message": "Syntax error at line packages/service/Dockerfile:55:\n `--chown=node:node` was unexpected",
+        "path": "packages/service/Dockerfile",
+        "spans": [
+          {
+            "end": {"col": 23, "line": 55, "offset": 17},
+            "file": "packages/service/Dockerfile",
+            "start": {"col": 6, "line": 55, "offset": 0}
+          }
+        ],
+        "type": [
+          "PartialParsing",
+          [
+            {
+              "end": {"col": 23, "line": 55, "offset": 17},
+              "path": "packages/service/Dockerfile",
+              "start": {"col": 6, "line": 55, "offset": 0}
+            }
+          ]
+        ]
+      }
+    ],
+    "interfile_languages_used": [],
+    "paths": {
+      "scanned": [
+        ".dockerignore",
+        ".eslintrc.js",
+        ".github/actions/flyway/action.yaml",
+        ".github/dependabot.yml",
+        ".github/pull_request_template.md",
+        ".github/workflows/ci-cd.yml",
+        ".github/workflows/release.yml",
+        ".gitignore",
+        ".jest.config.json",
+        ".prettierrc",
+        "README.md",
+        "docker-compose.yml",
+        "package-lock.json",
+        "package.json",
+        "packages/common/package.json",
+        "packages/common/src/compression.ts",
+        "packages/common/src/config.ts",
+        "packages/common/src/datadogMetrics.ts",
+        "packages/common/src/error.ts",
+        "packages/common/src/index.ts",
+        "packages/common/src/tsconfig.json",
+        "packages/common/src/types.ts",
+        "packages/common/src/userEvent/common.ts",
+        "packages/common/src/userEvent/index.ts",
+        "packages/common/src/userEvent/types/cd.ts",
+        "packages/common/src/userEvent/types/ci.ts",
+        "packages/common/src/userEvent/types/common.ts",
+        "packages/common/src/userEvent/types/index.ts",
+        "packages/common/src/userEvent/types/params.ts",
+        "packages/common/src/userEvent/types/testexecution.ts",
+        "packages/common/src/userEvent/utils.ts",
+        "packages/eslint-config/index.js",
+        "packages/eslint-config/package.json",
+        "packages/scripts/bin/build.sh",
+        "packages/scripts/bin/clean.sh",
+        "packages/scripts/bin/lint.sh",
+        "packages/scripts/bin/test.sh",
+        "packages/scripts/package.json",
+        "packages/service/Dockerfile",
+        "packages/service/package.json",
+        "packages/service/resources/db/migrations/V1__CreateWebhookTable.sql",
+        "packages/service/resources/db/migrations/V2__AddEventName.sql",
+        "packages/service/resources/db/migrations/V3__ChangeEventsPKey.sql",
+        "packages/service/resources/db/migrations/V4__ReceivedAtEventsIndex.sql",
+        "packages/service/resources/db/schema.prisma",
+        "packages/service/resources/oas.yml",
+        "packages/service/scripts/entrypoint.sh",
+        "packages/service/scripts/healthCheck.sh",
+        "packages/service/scripts/prismaMigrate.sh",
+        "packages/service/src/app.ts",
+        "packages/service/src/authenticator.ts",
+        "packages/service/src/config.ts",
+        "packages/service/src/context.ts",
+        "packages/service/src/index.ts",
+        "packages/service/src/openApi.ts",
+        "packages/service/src/rateLimit.ts",
+        "packages/service/src/repository/eventRepository.ts",
+        "packages/service/src/repository/inMemoryEventRepo.ts",
+        "packages/service/src/repository/inMemoryWebhookRepo.ts",
+        "packages/service/src/repository/index.ts",
+        "packages/service/src/repository/postgresEventRepo.ts",
+        "packages/service/src/repository/postgresWebhookRepo.ts",
+        "packages/service/src/repository/webhookRepository.ts",
+        "packages/service/src/router/index.ts",
+        "packages/service/src/router/webhookEventRouter.ts",
+        "packages/service/src/router/webhookRouter.ts",
+        "packages/service/src/routes.ts",
+        "packages/service/src/tsconfig.json",
+        "packages/service/src/types.ts",
+        "packages/service/src/userEvent/cd-event.ts",
+        "packages/service/src/userEvent/ci-event.ts",
+        "packages/service/src/userEvent/common.ts",
+        "packages/service/src/userEvent/manager.ts",
+        "packages/service/src/userEvent/testexecution-event.ts",
+        "packages/service/src/userEvent/types.ts",
+        "packages/service/src/userEvent/utils.ts",
+        "packages/service/src/userEventService.ts",
+        "packages/service/src/validation.ts",
+        "packages/service/src/webhookEventHandler/gitHubEventHandler.ts",
+        "packages/service/src/webhookEventHandler/gitLabEventHandler.ts",
+        "packages/service/src/webhookEventHandler/index.ts",
+        "packages/service/src/webhookEventHandler/sourceEventHandler.ts",
+        "packages/service/src/webhookService.ts",
+        "packages/service/src/worker/index.ts",
+        "packages/service/src/worker/keystore.ts",
+        "packages/service/src/worker/queue/inMemoryQueue.ts",
+        "packages/service/src/worker/queue/index.ts",
+        "packages/service/src/worker/queue/queue.ts",
+        "packages/service/src/worker/queue/sqsQueue.ts",
+        "packages/tsconfig/base.json",
+        "packages/tsconfig/package.json",
+        "packages/worker/package.json",
+        "packages/worker/src/converters/githubConverter.ts",
+        "packages/worker/src/converters/utils.ts",
+        "packages/worker/src/env.ts",
+        "packages/worker/src/index.ts",
+        "packages/worker/src/tsconfig.json",
+        "packages/worker/src/worker.ts",
+        "tsconfig.json",
+        "turbo.json"
+      ]
+    },
+    "results": [
+      {
+        "check_id": "yaml.docker-compose.security.no-new-privileges.no-new-privileges",
+        "end": {"col": 12, "line": 23, "offset": 714},
+        "extra": {
+          "engine_kind": "OSS",
+          "fingerprint": "9fb655c7c11aae44315632fa2537c2f90de0f816e979ea1648d07402f7fb4c0b1a5ae8f95b166445a33dcac5adbba59f020e69a1a22285c9c055086afac32f69_0",
+          "is_ignored": false,
+          "lines": "  hermes_db:",
+          "message": "Service 'hermes_db' allows for privilege escalation via setuid or setgid binaries. Add 'no-new-privileges:true' in 'security_opt' to prevent this.",
+          "metadata": {
+            "category": "security",
+            "confidence": "LOW",
+            "cwe": ["CWE-732: Incorrect Permission Assignment for Critical Resource"],
+            "cwe2021-top25": true,
+            "impact": "HIGH",
+            "license": "Commons Clause License Condition v1.0[LGPL-2.1-only]",
+            "likelihood": "LOW",
+            "owasp": ["A05:2021 - Security Misconfiguration", "A06:2017 - Security Misconfiguration"],
+            "references": [
+              "https://raesene.github.io/blog/2019/06/01/docker-capabilities-and-no-new-privs/",
+              "https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt",
+              "https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-4-add-no-new-privileges-flag"
+            ],
+            "semgrep.dev": {
+              "rule": {
+                "origin": "community",
+                "rule_id": "qNUoWr",
+                "url": "https://semgrep.dev/playground/r/qkT2BLp/yaml.docker-compose.security.no-new-privileges.no-new-privileges",
+                "version_id": "qkT2BLp"
+              }
+            },
+            "shortlink": "https://sg.run/0n8q",
+            "source": "https://semgrep.dev/r/yaml.docker-compose.security.no-new-privileges.no-new-privileges",
+            "subcategory": ["audit"],
+            "technology": ["docker-compose"],
+            "vulnerability_class": ["Improper Authorization"]
+          },
+          "metavars": {
+            "$SERVICE": {
+              "abstract_content": "hermes_db",
+              "end": {"col": 12, "line": 23, "offset": 714},
+              "start": {"col": 3, "line": 23, "offset": 705}
+            }
+          },
+          "severity": "WARNING",
+          "validation_state": "NO_VALIDATOR"
+        },
+        "path": "docker-compose.yml",
+        "start": {"col": 3, "line": 23, "offset": 705}
+      },
+      {
+        "check_id": "yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service",
+        "end": {"col": 12, "line": 23, "offset": 714},
+        "extra": {
+          "engine_kind": "OSS",
+          "fingerprint": "75087e6f7e288cc2772e3cb024be941644db0da3bad3c4b0fd784e3c940708d8e061e92e003807d40297428edb8037d427c14c39248c8a0cbd0068bd0e32df04_0",
+          "is_ignored": false,
+          "lines": "  hermes_db:",
+          "message": "Service 'hermes_db' is running with a writable root filesystem. This may allow malicious applications to download and run additional payloads, or modify container files. If an application inside a container has to save something temporarily consider using a tmpfs. Add 'read_only: true' to this service to prevent this.",
+          "metadata": {
+            "category": "security",
+            "confidence": "LOW",
+            "cwe": ["CWE-732: Incorrect Permission Assignment for Critical Resource"],
+            "cwe2021-top25": true,
+            "impact": "HIGH",
+            "license": "Commons Clause License Condition v1.0[LGPL-2.1-only]",
+            "likelihood": "LOW",
+            "owasp": ["A05:2021 - Security Misconfiguration", "A06:2017 - Security Misconfiguration"],
+            "references": [
+              "https://docs.docker.com/compose/compose-file/compose-file-v3/#domainname-hostname-ipc-mac_address-privileged-read_only-shm_size-stdin_open-tty-user-working_dir",
+              "https://blog.atomist.com/security-of-docker-kubernetes/",
+              "https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-8-set-filesystem-and-volumes-to-read-only"
+            ],
+            "semgrep.dev": {
+              "rule": {
+                "origin": "community",
+                "rule_id": "v8U5vN",
+                "url": "https://semgrep.dev/playground/r/o5Tg9ob/yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service",
+                "version_id": "o5Tg9ob"
+              }
+            },
+            "shortlink": "https://sg.run/e4JE",
+            "source": "https://semgrep.dev/r/yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service",
+            "subcategory": ["audit"],
+            "technology": ["docker-compose"],
+            "vulnerability_class": ["Improper Authorization"]
+          },
+          "metavars": {
+            "$SERVICE": {
+              "abstract_content": "hermes_db",
+              "end": {"col": 12, "line": 23, "offset": 714},
+              "start": {"col": 3, "line": 23, "offset": 705}
+            }
+          },
+          "severity": "WARNING",
+          "validation_state": "NO_VALIDATOR"
+        },
+        "path": "docker-compose.yml",
+        "start": {"col": 3, "line": 23, "offset": 705}
+      },
+      {
+        "check_id": "javascript.ajv.security.audit.ajv-allerrors-true.ajv-allerrors-true",
+        "end": {"col": 39, "line": 23, "offset": 986},
+        "extra": {
+          "engine_kind": "OSS",
+          "fingerprint": "abea3602d0c2f6bd9b2776c108c5718cb480dc51b9497d9ce8cce944953d8237a30e5905a040bc46a93a403198f9af741035ab8eb555762c70f0f17222ef3887_0",
+          "is_ignored": false,
+          "lines": "const ajv = new Ajv({allErrors: true});",
+          "message": "By setting `allErrors: true` in `Ajv` library, all error objects will be allocated without limit. This allows the attacker to produce a huge number of errors which can lead to denial of service. Do not use `allErrors: true` in production.",
+          "metadata": {
+            "category": "security",
+            "confidence": "LOW",
+            "cwe": ["CWE-400: Uncontrolled Resource Consumption"],
+            "cwe2022-top25": true,
+            "impact": "LOW",
+            "license": "Commons Clause License Condition v1.0[LGPL-2.1-only]",
+            "likelihood": "LOW",
+            "references": ["https://ajv.js.org/options.html#allerrors"],
+            "semgrep.dev": {
+              "rule": {
+                "origin": "community",
+                "rule_id": "PeUo5X",
+                "url": "https://semgrep.dev/playground/r/YDTp2LQ/javascript.ajv.security.audit.ajv-allerrors-true.ajv-allerrors-true",
+                "version_id": "YDTp2LQ"
+              }
+            },
+            "shortlink": "https://sg.run/d2jY",
+            "source": "https://semgrep.dev/r/javascript.ajv.security.audit.ajv-allerrors-true.ajv-allerrors-true",
+            "subcategory": ["audit"],
+            "technology": ["ajv"],
+            "vulnerability_class": ["Denial-of-Service (DoS)"]
+          },
+          "metavars": {},
+          "severity": "WARNING",
+          "validation_state": "NO_VALIDATOR"
+        },
+        "path": "packages/common/src/userEvent/types/index.ts",
+        "start": {"col": 13, "line": 23, "offset": 960}
+      }
+    ],
+    "skipped_rules": [],
+    "version": "1.50.0"
+  }
+  
