@@ -102,7 +102,6 @@ export function mainCommand(): Command {
     const config: ScanResultsReporterConfig = { ...options };
 
     try {
-      console.log(JSON.stringify(config));
       await new ScanResultsReporter(config, log).process(paths);
     } catch (err: any) {
       log.error({ err }, `Processing failed. Error: ${err.message}`);

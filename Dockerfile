@@ -7,7 +7,11 @@ FROM base AS builder
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y bash
-COPY . .
+COPY --chown=node:node ./src ./src
+COPY --chown=node:node ./bin ./bin
+COPY --chown=node:node ./.tsconfig.json ./.tsconfig.json
+COPY --chown=node:node ./package.json ./package.json
+COPY --chown=node:node ./package-lock.json ./package-lock.json
 RUN npm i
 
 # Remove write permission from executables -- SonarCloud rule docker:S6504
