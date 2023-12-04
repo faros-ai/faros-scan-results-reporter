@@ -12,16 +12,16 @@ $ ./bin/faros-scan-result-reporter --help
 
 # Run directly
 $ ./bin/faros-scan-result-reporter /path/to/results.* \
+  -k $FAROS_API_KEY \
   --tool semgrep \
   --repository '<repository>' \
   --organization '<organization>' \
-  --source '<source>' \
-  --api-key $FAROS_API_KEY
+  --source '<source>'
 
 # Run with docker (make sure to set ./path/to/results)
 $ docker run -v "./path/to/results:/app/results" scanner:test ./results/* \
+  -k $FAROS_API_KEY \
   --tool semgrep \
-  -k '<faros-api-key>' \
   --repository '<repository>' \
   --organization '<organization>' \
   --source '<source>'
