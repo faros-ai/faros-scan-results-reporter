@@ -7,9 +7,12 @@ CLI for parsing &amp; uploading code scan results ([semgrep](https://github.com/
 ```sh
 $ npm i
 
+$ ./bin/faros-scan-result-reporter --help
+
 $ ./bin/faros-scan-result-reporter /path/to/results.* \
   --tool semgrep \
-  --commit GitHub://acme-corp/my-repo/da500aa4f54cbf8f3eb47a1dc2c136715c9197b9 \
-  --graph default \
+  --repository '<repository>' \
+  --organization '<organization>' \
+  --source '<source>' \
   --api-key $FAROS_API_KEY
 ```

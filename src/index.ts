@@ -7,10 +7,13 @@ import {
   ScanResultsReporterConfig,
   ScanTool,
 } from "./scan-results-reporter";
+import { Utils } from "faros-js-client";
+import { DateTime } from "luxon";
 
 export const DEFAULT_GRAPH_NAME = "default";
 export const DEFAULT_ORIGIN = "faros-scan-results-reporter";
 export const DEFAULT_API_URL = "https://prod.api.faros.ai";
+const DEFAULT_CONCURRENCY = "8";
 
 /** The main entry point. */
 export function mainCommand(): Command {
@@ -37,50 +40,59 @@ export function mainCommand(): Command {
     .makeOptionMandatory(true);
   cmd.addOption(format);
 
-  const key = new Option(
+  cmd.requiredOption(
     "-k, --api-key <key>",
     "Your Faros API key. See the documentation for more information on obtaining an API key"
-  ).makeOptionMandatory(true);
-  cmd.addOption(key);
-
-  const url = new Option(
+  );
+  cmd.option(
     "-u, --url <url>",
-    "The Faros API url to send the test results to"
-  ).default(DEFAULT_API_URL);
-  cmd.addOption(url);
-
-  const graph = new Option(
+    "The Faros API url to send the test results to",
+    DEFAULT_API_URL
+  );
+  cmd.option(
     "-g, --graph <name>",
-    "The graph to which the test results should be sent"
-  ).default(DEFAULT_GRAPH_NAME);
-  cmd.addOption(graph);
-
-  const origin = new Option(
+    "The graph to which the test results should be sent",
+    DEFAULT_GRAPH_NAME
+  );
+  cmd.option(
     "--origin <name>",
-    "The origin of the data that is being sent to Faros"
-  ).default(DEFAULT_ORIGIN);
-  cmd.addOption(origin);
-
-  const commit = new Option(
-    "--commit <uri>",
-    'The URI of the commit of the form: <source>://<organization>/<repository>/<commit_sha> (e.g. "GitHub://faros-ai/my-repo/da500aa4f54cbf8f3eb47a1dc2c136715c9197b9")'
-  ).makeOptionMandatory(true);
-  cmd.addOption(commit);
-
-  const debug = new Option("--debug", "Enable debug logging").default(false);
-  cmd.addOption(debug);
-
-  const dryRun = new Option(
-    "--dry-run",
-    "Print the data instead of sending it"
-  ).default(false);
-  cmd.addOption(dryRun);
-
-  const concurrency = new Option(
+    "The origin of the data that is being sent to Faros",
+    DEFAULT_ORIGIN
+  );
+  cmd.option(
+    "--repository <repository>",
+    "The name of the VCS repository that was scanned"
+  );
+  cmd.option(
+    "--organization <organization>",
+    "The name of the VCS organization that contains the repository"
+  );
+  cmd.option("--source <source>", "The name of your VCS source");
+  cmd.option(
+    "--pull-request <vcs-pull-request>",
+    "The VCS pull request number",
+    Utils.parseIntegerPositive
+  );
+  cmd.option(
+    "--application <application>",
+    "The name of the application that the code represents"
+  );
+  cmd.option(
+    "--application-platform <application-platform>",
+    "The application platform"
+  );
+  cmd.option(
+    "--scanned-at <scanned-at>",
+    "The timestamp of when the scan was performed. Defaults to NOW",
+    DateTime.now().toISO()
+  );
+  cmd.option("--debug", "Enable debug logging", false);
+  cmd.option("--dry-run", "Print the data instead of sending it", false);
+  cmd.option(
     "--concurrency <number>",
-    "Number of concurrent requests to Faros API"
-  ).default(8);
-  cmd.addOption(concurrency);
+    "Number of concurrent requests to Faros API",
+    DEFAULT_CONCURRENCY
+  );
 
   cmd.action(async (paths, options) => {
     const log = pino({
@@ -90,6 +102,7 @@ export function mainCommand(): Command {
     const config: ScanResultsReporterConfig = { ...options };
 
     try {
+      console.log(JSON.stringify(config));
       await new ScanResultsReporter(config, log).process(paths);
     } catch (err: any) {
       log.error({ err }, `Processing failed. Error: ${err.message}`);

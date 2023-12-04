@@ -1,6 +1,7 @@
 import { Mutation, QueryBuilder } from "faros-js-client";
 import { Converter } from "../converter";
-import { v4 } from 'uuid';
+import { v4 } from "uuid";
+import { CodeQualityCategory, CodeQualityMetricType } from "../types";
 
 interface CodeLocation {
   readonly col: number;
@@ -20,6 +21,10 @@ interface ScanError {
   readonly message: string;
   readonly path: string;
   readonly spans: CodeSpan;
+}
+
+enum ScanResultCategory {
+  Security = "security",
 }
 
 interface ScanResultExtraMetadata {
@@ -57,33 +62,90 @@ interface SemgrepScanOutput {
   readonly results: Array<ScanResult>;
 }
 
+export interface SemgrepConfig {
+  readonly repoInfo?: {
+    readonly name: string;
+    readonly organization: string;
+    readonly source: string;
+  };
+  readonly pullRequest?: number;
+  readonly appInfo?: {
+    readonly name: string;
+    readonly platform: string;
+  };
+  readonly createdAt: string;
+}
+
 export class SemgrepConverter extends Converter {
-  convert(data: SemgrepScanOutput, qb: QueryBuilder): Array<Mutation> {
+  convert(
+    data: SemgrepScanOutput,
+    config: SemgrepConfig,
+    qb: QueryBuilder
+  ): Array<Mutation> {
     const mutations = [];
 
-    const qa_CodeQuality = {
-        uid: v4(),
-
-    }
+    const qa_CodeQuality: any = {
+      uid: v4(),
+      vulnerabilities: {
+        category: CodeQualityCategory.Security,
+        type: CodeQualityMetricType.Int,
+        name: "vulnerabilities",
+        value: "0",
+      },
+      createdAt: config.createdAt,
+    };
 
     for (const result of data?.results ?? []) {
-
-
-
-        
+      if (result.extra?.metadata?.category === ScanResultCategory.Security) {
+        qa_CodeQuality.vulnerabilities.value = addNtoString(
+          qa_CodeQuality.vulnerabilities.value,
+          1
+        );
+      }
     }
 
-    return [];
+    let repoInfo;
+    if (config.repoInfo) {
+      repoInfo = {
+        name: config.repoInfo.name,
+        organization: qb.ref({
+          vcs_Organization: {
+            uid: config.repoInfo.organization,
+            source: config.repoInfo.organization,
+          },
+        }),
+      };
+      qa_CodeQuality.repository = qb.ref({
+        vcs_Repository: repoInfo,
+      });
+    }
+
+    if (config.pullRequest && repoInfo) {
+      qa_CodeQuality.pullRequest = qb.ref({
+        vcs_PullRequest: {
+          number: config.pullRequest,
+          repository: qb.ref({
+            vcs_Repository: repoInfo,
+          }),
+        },
+      });
+    }
+
+    if (config.appInfo) {
+      qa_CodeQuality.application = qb.ref({
+        compute_Application: {
+          name: config.appInfo.name,
+          platform: config.appInfo.platform,
+        },
+      });
+    }
+
+    mutations.push(qb.upsert({ qa_CodeQuality }));
+
+    return mutations;
   }
 }
 
-// function makeCodeQualityMeasureBase():{
-//     category: string;
-//     name: string;
-//     type: string;
-//     value: string;
-// } {
-//     return {
-
-//     }
-// }
+function addNtoString(numStr: string, n: number): string {
+  return (Number(numStr) + n).toString();
+}

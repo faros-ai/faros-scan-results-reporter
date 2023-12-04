@@ -1,9 +1,9 @@
 import { Logger } from "pino";
 import { VError } from "verror";
 import pLimit from "p-limit";
-import { FarosClient, Mutation, QueryBuilder } from "faros-js-client";
+import { FarosClient, Mutation, QueryBuilder, batchMutation } from "faros-js-client";
 import fs from "fs";
-import { SemgrepConverter } from "./converters";
+import { SemgrepConfig, SemgrepConverter } from "./converters";
 
 const MUTATION_BATCH_SIZE = 1000;
 
@@ -17,7 +17,13 @@ export type ScanResultsReporterConfig = {
   readonly graph: string;
   readonly origin: string;
   readonly tool: ScanTool;
-  readonly commit: string;
+  readonly scannedAt: string;
+  readonly vcsPullRequest?: number;
+  readonly vcsRepository?: string;
+  readonly vcsOrganization?: string;
+  readonly vcsSource?: string;
+  readonly computeApplication?: string;
+  readonly computeApplicationPlatform?: string;
   readonly debug: boolean;
   readonly dryRun: boolean;
   readonly concurrency: number;
@@ -51,7 +57,7 @@ export class ScanResultsReporter {
       this.log.debug("Processing scan results in file: %s", file);
       const result = JSON.parse(fs.readFileSync(`${file}`, "utf8"));
 
-      for (const batch of this.getMutationBatches(result, this.config.tool)) {
+      for (const batch of this.getMutationBatches(result, this.config)) {
         if (this.config.dryRun !== true) {
           workerPromises.push(
             limit(async () => {
@@ -80,16 +86,47 @@ export class ScanResultsReporter {
 
   private *getMutationBatches(
     data: any,
-    tool: ScanTool
+    config: any
   ): Generator<Array<Mutation>> {
     let mutations = [];
-    switch (tool) {
+
+    let repoInfo: {
+      name: string;
+      organization: string;
+      source: string;
+    };
+    if (config.repository && config.organization && config.source) {
+      repoInfo = {
+        name: config.repository,
+        organization: config.organization,
+        source: config.source,
+      };
+    }
+    let appInfo: {
+      name: string;
+      platform: string;
+    };
+    if (config.application) {
+      appInfo = {
+        name: config.application,
+        platform: config.applicationPlatform ?? "",
+      };
+    }
+
+    switch (config.tool) {
       case ScanTool.Semgrep:
-        mutations = new SemgrepConverter().convert(data, this.qb);
+        const semGrepConf: SemgrepConfig = {
+          repoInfo,
+          pullRequest: config.pullRequest,
+          appInfo,
+          createdAt: config.scannedAt
+        };
+        mutations = new SemgrepConverter().convert(data, semGrepConf, this.qb);
         break;
       default:
         throw new VError("Unsupported scan tool");
     }
+
     while (mutations.length) {
       yield mutations.splice(0, MUTATION_BATCH_SIZE);
     }
