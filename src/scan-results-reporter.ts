@@ -115,13 +115,13 @@ export class ScanResultsReporter {
 
     switch (config.tool) {
       case ScanTool.Semgrep:
-        const semGrepConf: SemgrepConfig = {
+        const semgrepConf: SemgrepConfig = {
           repoInfo,
           pullRequest: config.pullRequest,
           appInfo,
           createdAt: config.scannedAt
         };
-        mutations = new SemgrepConverter().convert(data, semGrepConf, this.qb);
+        mutations = new SemgrepConverter().convert(data, semgrepConf, this.qb);
         break;
       default:
         throw new VError("Unsupported scan tool");
