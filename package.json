@@ -29,7 +29,7 @@
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
     "commander": "^9.3.0",
-    "faros-js-client": "^0.3.7",
+    "faros-js-client": "^0.3.8",
     "luxon": "^3.4.4",
     "p-limit": "^3.1.0",
     "pino": "^8.11.0",
