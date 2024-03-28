@@ -10,9 +10,9 @@ export enum CodeQualityCategory {
 }
 
 export enum CodeQualityMetricType {
-  Bool = 'Bool',
-  Float = 'Float',
-  Int = 'Int',
-  Percent = 'Percent',
-  String = 'String',
+  Bool = "Bool",
+  Float = "Float",
+  Int = "Int",
+  Percent = "Percent",
+  String = "String",
 }

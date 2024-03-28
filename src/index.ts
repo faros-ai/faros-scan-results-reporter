@@ -1,14 +1,14 @@
 import { Command, Option } from "commander";
+import { Utils } from "faros-js-client";
+import { DateTime } from "luxon";
 import path from "path";
-
 import pino from "pino";
+
 import {
   ScanResultsReporter,
   ScanResultsReporterConfig,
   ScanTool,
 } from "./scan-results-reporter";
-import { Utils } from "faros-js-client";
-import { DateTime } from "luxon";
 
 export const DEFAULT_GRAPH_NAME = "default";
 export const DEFAULT_ORIGIN = "faros-scan-results-reporter";

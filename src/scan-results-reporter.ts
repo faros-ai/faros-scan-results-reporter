@@ -1,13 +1,17 @@
+import { FarosClient, Mutation, QueryBuilder } from "faros-js-client";
+import fs from "fs";
+import pLimit from "p-limit";
 import { Logger } from "pino";
 import { VError } from "verror";
-import pLimit from "p-limit";
-import { FarosClient, Mutation, QueryBuilder, batchMutation } from "faros-js-client";
-import fs from "fs";
-import { SemgrepConfig, SemgrepConverter } from "./converters";
+
+import { SemgrepConverter } from "./converters";
+import { CodeClimateConverter } from "./converters/codeclimate";
+import { Config } from "./converters/common";
 
 const MUTATION_BATCH_SIZE = 1000;
 
 export enum ScanTool {
+  CodeClimate = "codeclimate",
   Semgrep = "semgrep",
 }
 
@@ -113,15 +117,27 @@ export class ScanResultsReporter {
       };
     }
 
+    const converterConf: Config = {
+      repoInfo,
+      pullRequest: config.pullRequest,
+      appInfo,
+      createdAt: config.scannedAt,
+    };
+
     switch (config.tool) {
+      case ScanTool.CodeClimate:
+        mutations = new CodeClimateConverter().convert(
+          data,
+          converterConf,
+          this.qb
+        );
+        break;
       case ScanTool.Semgrep:
-        const semgrepConf: SemgrepConfig = {
-          repoInfo,
-          pullRequest: config.pullRequest,
-          appInfo,
-          createdAt: config.scannedAt
-        };
-        mutations = new SemgrepConverter().convert(data, semgrepConf, this.qb);
+        mutations = new SemgrepConverter().convert(
+          data,
+          converterConf,
+          this.qb
+        );
         break;
       default:
         throw new VError("Unsupported scan tool");
