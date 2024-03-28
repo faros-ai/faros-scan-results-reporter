@@ -1,8 +1,8 @@
-import { Mutation, QueryBuilder } from "faros-js-client";
+import { Mutation, QueryBuilder } from 'faros-js-client';
 
-import { Converter } from "../converter";
-import { CodeQualityCategory, CodeQualityMetricType } from "../types";
-import { Config } from "./common";
+import { Converter } from '../converter';
+import { CodeQualityCategory, CodeQualityMetricType } from '../types';
+import { Config } from './common';
 
 export interface CodeCoverageReport {
   git: {
@@ -24,7 +24,7 @@ export class CodeClimateConverter extends Converter {
       coverage: {
         category: CodeQualityCategory.Coverage,
         type: CodeQualityMetricType.Percent,
-        name: "Coverage",
+        name: 'Coverage',
         value: data.covered_percent,
       },
       createdAt: config.createdAt,

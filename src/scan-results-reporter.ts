@@ -1,18 +1,18 @@
-import { FarosClient, Mutation, QueryBuilder } from "faros-js-client";
-import fs from "fs";
-import pLimit from "p-limit";
-import { Logger } from "pino";
-import { VError } from "verror";
+import { FarosClient, Mutation, QueryBuilder } from 'faros-js-client';
+import fs from 'fs';
+import pLimit from 'p-limit';
+import { Logger } from 'pino';
+import { VError } from 'verror';
 
-import { SemgrepConverter } from "./converters";
-import { CodeClimateConverter } from "./converters/codeclimate";
-import { Config } from "./converters/common";
+import { SemgrepConverter } from './converters';
+import { CodeClimateConverter } from './converters/codeclimate';
+import { Config } from './converters/common';
 
 const MUTATION_BATCH_SIZE = 1000;
 
 export enum ScanTool {
-  CodeClimate = "codeclimate",
-  Semgrep = "semgrep",
+  CodeClimate = 'codeclimate',
+  Semgrep = 'semgrep',
 }
 
 export type ScanResultsReporterConfig = {
@@ -51,15 +51,15 @@ export class ScanResultsReporter {
   }
 
   async process(paths: ReadonlyArray<string>): Promise<void> {
-    const files = paths.flatMap((p) => p.split(",").map((v) => v.trim()));
-    this.log.debug("Processing %d paths: %s", files.length, files.join(","));
+    const files = paths.flatMap((p) => p.split(',').map((v) => v.trim()));
+    this.log.debug('Processing %d paths: %s', files.length, files.join(','));
 
     const workerPromises = [];
     const limit = pLimit(Number(this.config.concurrency));
 
     for (const file of files) {
-      this.log.debug("Processing scan results in file: %s", file);
-      const result = JSON.parse(fs.readFileSync(`${file}`, "utf8"));
+      this.log.debug('Processing scan results in file: %s', file);
+      const result = JSON.parse(fs.readFileSync(`${file}`, 'utf8'));
 
       for (const batch of this.getMutationBatches(result, this.config)) {
         if (this.config.dryRun !== true) {
@@ -67,11 +67,11 @@ export class ScanResultsReporter {
             limit(async () => {
               try {
                 this.faros.sendMutations(this.config.graph, batch);
-                this.log.debug("Delivered scan results batch");
+                this.log.debug('Delivered scan results batch');
               } catch (err: any) {
                 const response = err.response?.data
                   ? ` Response: ${JSON.stringify(err.response.data)}`
-                  : "";
+                  : '';
                 const msg = `Failed to report scan results batch. Error: ${err.message}.${response}`;
                 throw new VError(msg);
               }
@@ -84,8 +84,8 @@ export class ScanResultsReporter {
     // Wait for all the requests to complete
     await Promise.all(workerPromises);
 
-    this.log.info("Processed %d scan results", files.length);
-    this.log.info("Done.");
+    this.log.info('Processed %d scan results', files.length);
+    this.log.info('Done.');
   }
 
   private *getMutationBatches(
@@ -113,7 +113,7 @@ export class ScanResultsReporter {
     if (config.application) {
       appInfo = {
         name: config.application,
-        platform: config.applicationPlatform ?? "",
+        platform: config.applicationPlatform ?? '',
       };
     }
 
@@ -140,7 +140,7 @@ export class ScanResultsReporter {
         );
         break;
       default:
-        throw new VError("Unsupported scan tool");
+        throw new VError('Unsupported scan tool');
     }
 
     while (mutations.length) {

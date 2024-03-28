@@ -1,9 +1,9 @@
-import { Mutation, QueryBuilder } from "faros-js-client";
-import { v4 } from "uuid";
+import { Mutation, QueryBuilder } from 'faros-js-client';
+import { v4 } from 'uuid';
 
-import { Converter } from "../converter";
-import { CodeQualityCategory, CodeQualityMetricType } from "../types";
-import { Config } from "./common";
+import { Converter } from '../converter';
+import { CodeQualityCategory, CodeQualityMetricType } from '../types';
+import { Config } from './common';
 
 interface CodeLocation {
   readonly col: number;
@@ -26,14 +26,14 @@ interface ScanError {
 }
 
 enum ScanResultCategory {
-  Security = "security",
+  Security = 'security',
 }
 
 interface ScanResultExtraMetadata {
   readonly category: string;
   readonly confidence: string;
   readonly cwe: Array<string>;
-  readonly "cwe2022-top25": boolean;
+  readonly 'cwe2022-top25': boolean;
   readonly impact: string;
   readonly vulnerability_class: Array<string>;
 }
@@ -77,8 +77,8 @@ export class SemgrepConverter extends Converter {
       vulnerabilities: {
         category: CodeQualityCategory.Security,
         type: CodeQualityMetricType.Int,
-        name: "vulnerabilities",
-        value: "0",
+        name: 'vulnerabilities',
+        value: '0',
       },
       createdAt: config.createdAt,
     };
