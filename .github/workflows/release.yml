@@ -33,10 +33,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Publish Events CLI image
+      - name: Publish Scan Results Reporter image
         run: |
           docker build . -t $LATEST_TAG \
-          -t $VERSION_TAG \
+          -t $VERSION_TAG && \
           docker push $LATEST_TAG && \
           docker push $COMMIT_SHA_TAG && \
           docker push $VERSION_TAG
