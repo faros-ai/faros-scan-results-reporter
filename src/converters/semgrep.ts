@@ -1,7 +1,9 @@
-import { Mutation, QueryBuilder } from "faros-js-client";
-import { Converter } from "../converter";
-import { v4 } from "uuid";
-import { CodeQualityCategory, CodeQualityMetricType } from "../types";
+import { Mutation, QueryBuilder } from 'faros-js-client';
+import { v4 } from 'uuid';
+
+import { Converter } from '../converter';
+import { CodeQualityCategory, CodeQualityMetricType } from '../types';
+import { Config } from './common';
 
 interface CodeLocation {
   readonly col: number;
@@ -24,14 +26,14 @@ interface ScanError {
 }
 
 enum ScanResultCategory {
-  Security = "security",
+  Security = 'security',
 }
 
 interface ScanResultExtraMetadata {
   readonly category: string;
   readonly confidence: string;
   readonly cwe: Array<string>;
-  readonly "cwe2022-top25": boolean;
+  readonly 'cwe2022-top25': boolean;
   readonly impact: string;
   readonly vulnerability_class: Array<string>;
 }
@@ -62,24 +64,10 @@ interface SemgrepScanOutput {
   readonly results: Array<ScanResult>;
 }
 
-export interface SemgrepConfig {
-  readonly repoInfo?: {
-    readonly name: string;
-    readonly organization: string;
-    readonly source: string;
-  };
-  readonly pullRequest?: number;
-  readonly appInfo?: {
-    readonly name: string;
-    readonly platform: string;
-  };
-  readonly createdAt: string;
-}
-
 export class SemgrepConverter extends Converter {
   convert(
     data: SemgrepScanOutput,
-    config: SemgrepConfig,
+    config: Config,
     qb: QueryBuilder
   ): Array<Mutation> {
     const mutations = [];
@@ -89,8 +77,8 @@ export class SemgrepConverter extends Converter {
       vulnerabilities: {
         category: CodeQualityCategory.Security,
         type: CodeQualityMetricType.Int,
-        name: "vulnerabilities",
-        value: "0",
+        name: 'vulnerabilities',
+        value: '0',
       },
       createdAt: config.createdAt,
     };
@@ -111,7 +99,7 @@ export class SemgrepConverter extends Converter {
         organization: qb.ref({
           vcs_Organization: {
             uid: config.repoInfo.organization,
-            source: config.repoInfo.organization,
+            source: config.repoInfo.source,
           },
         }),
       };

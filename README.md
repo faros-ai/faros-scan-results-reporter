@@ -18,6 +18,14 @@ $ ./bin/faros-scan-result-reporter /path/to/results.* \
   --organization '<organization>' \
   --source '<source>'
 
+$ ./bin/faros-scan-result-reporter /path/to/results.* \
+  -k $FAROS_API_KEY \
+  --tool codeclimate \
+  --repository '<repository>' \
+  --organization '<organization>' \
+  --source '<source>' \
+  --pull-request 123
+
 # Run with docker (make sure to set ./path/to/results)
 $ docker run -v "./path/to/results:/app/results" scanner:test ./results/* \
   -k $FAROS_API_KEY \

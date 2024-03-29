@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CodeClimateConverter should convert data to mutations 1`] = `
+Array [
+  Object {
+    "mutation": Object {
+      "insert_qa_CodeQuality_one": Object {
+        "__args": Object {
+          "object": Object {
+            "application": Object {
+              "data": Object {
+                "name": "app-name",
+                "platform": "platform-name",
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "compute_Application_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "commit": Object {
+              "data": Object {
+                "repository": Object {
+                  "data": Object {
+                    "name": "repo-name",
+                    "organization": Object {
+                      "data": Object {
+                        "source": "source-name",
+                        "uid": "org-name",
+                      },
+                      "on_conflict": Object {
+                        "constraint": EnumType {
+                          "value": "vcs_Organization_pkey",
+                        },
+                        "update_columns": Array [
+                          EnumType {
+                            "value": "refreshedAt",
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Repository_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+                "sha": "commit-hash",
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_Commit_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "coverage": Object {
+              "category": "Coverage",
+              "name": "Coverage",
+              "type": "Percent",
+              "value": 80,
+            },
+            "createdAt": "2021-03-28T16:00:05.000Z",
+            "origin": "my-origin",
+            "pullRequest": Object {
+              "data": Object {
+                "number": 123,
+                "repository": Object {
+                  "data": Object {
+                    "name": "repo-name",
+                    "organization": Object {
+                      "data": Object {
+                        "source": "source-name",
+                        "uid": "org-name",
+                      },
+                      "on_conflict": Object {
+                        "constraint": EnumType {
+                          "value": "vcs_Organization_pkey",
+                        },
+                        "update_columns": Array [
+                          EnumType {
+                            "value": "refreshedAt",
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Repository_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_PullRequest_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "repository": Object {
+              "data": Object {
+                "name": "repo-name",
+                "organization": Object {
+                  "data": Object {
+                    "source": "source-name",
+                    "uid": "org-name",
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Organization_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_Repository_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "uid": "my-uuid",
+          },
+          "on_conflict": Object {
+            "constraint": EnumType {
+              "value": "qa_CodeQuality_pkey",
+            },
+            "update_columns": Array [
+              EnumType {
+                "value": "refreshedAt",
+              },
+              EnumType {
+                "value": "uid",
+              },
+              EnumType {
+                "value": "coverage",
+              },
+              EnumType {
+                "value": "createdAt",
+              },
+              EnumType {
+                "value": "repositoryId",
+              },
+              EnumType {
+                "value": "commitId",
+              },
+              EnumType {
+                "value": "pullRequestId",
+              },
+              EnumType {
+                "value": "applicationId",
+              },
+              EnumType {
+                "value": "origin",
+              },
+            ],
+          },
+        },
+        "id": true,
+      },
+    },
+  },
+]
+`;
