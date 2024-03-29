@@ -25,9 +25,11 @@ $ ./bin/faros-scan-result-reporter /path/to/results.* \
   --organization '<organization>' \
   --source '<source>' \
   --pull-request 123
-
+```
+Or with Docker: 
+```
 # Run with docker (make sure to set ./path/to/results)
-$ docker run -v "./path/to/results:/app/results" scanner:test ./results/* \
+$ docker run -v "./path/to/results:/app/results" farosai/faros-scan-results-reporter:latest ./results/* \
   -k $FAROS_API_KEY \
   --tool semgrep \
   --repository '<repository>' \
