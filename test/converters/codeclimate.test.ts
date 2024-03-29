@@ -6,6 +6,10 @@ import {
 } from '../../src/converters/codeclimate';
 import { Config } from '../../src/converters/common';
 
+jest.mock('uuid', () => ({
+  v4: jest.fn().mockReturnValue('my-uuid'),
+}));
+
 describe('CodeClimateConverter', () => {
   let converter: CodeClimateConverter;
 
@@ -17,6 +21,7 @@ describe('CodeClimateConverter', () => {
     const data: CodeCoverageReport = {
       git: {
         head: 'commit-hash',
+        committed_at: 1616947205,
       },
       covered_percent: 80,
     };

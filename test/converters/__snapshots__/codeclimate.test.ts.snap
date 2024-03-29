@@ -23,13 +23,59 @@ Array [
                 ],
               },
             },
+            "commit": Object {
+              "data": Object {
+                "repository": Object {
+                  "data": Object {
+                    "name": "repo-name",
+                    "organization": Object {
+                      "data": Object {
+                        "source": "source-name",
+                        "uid": "org-name",
+                      },
+                      "on_conflict": Object {
+                        "constraint": EnumType {
+                          "value": "vcs_Organization_pkey",
+                        },
+                        "update_columns": Array [
+                          EnumType {
+                            "value": "refreshedAt",
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Repository_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+                "sha": "commit-hash",
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_Commit_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
             "coverage": Object {
               "category": "Coverage",
               "name": "Coverage",
               "type": "Percent",
               "value": 80,
             },
-            "createdAt": "2024-03-28T16:20:05.474Z",
+            "createdAt": "2021-03-28T16:00:05.000Z",
             "origin": "my-origin",
             "pullRequest": Object {
               "data": Object {
@@ -108,7 +154,7 @@ Array [
                 ],
               },
             },
-            "uid": "commit-hash",
+            "uid": "my-uuid",
           },
           "on_conflict": Object {
             "constraint": EnumType {
@@ -129,6 +175,9 @@ Array [
               },
               EnumType {
                 "value": "repositoryId",
+              },
+              EnumType {
+                "value": "commitId",
               },
               EnumType {
                 "value": "pullRequestId",

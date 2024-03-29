@@ -1,4 +1,5 @@
-import { Mutation, QueryBuilder } from 'faros-js-client';
+import { Mutation, QueryBuilder, Utils } from 'faros-js-client';
+import { v4 } from 'uuid';
 
 import { Converter } from '../converter';
 import { CodeQualityCategory, CodeQualityMetricType } from '../types';
@@ -7,6 +8,7 @@ import { Config } from './common';
 export interface CodeCoverageReport {
   git: {
     head: string;
+    committed_at: number;
   };
   covered_percent: number;
 }
@@ -17,17 +19,23 @@ export class CodeClimateConverter extends Converter {
     config: Config,
     qb: QueryBuilder
   ): Array<Mutation> {
+    if (!data?.git?.head || !data?.covered_percent) {
+      return [];
+    }
+
     const mutations = [];
 
     const qa_CodeQuality: any = {
-      uid: data.git.head,
+      uid: v4(),
       coverage: {
         category: CodeQualityCategory.Coverage,
         type: CodeQualityMetricType.Percent,
         name: 'Coverage',
         value: data.covered_percent,
       },
-      createdAt: config.createdAt,
+      createdAt: data?.git?.committed_at
+        ? new Date(data.git.committed_at * 1000).toISOString()
+        : config.createdAt,
     };
 
     let repoInfo;
@@ -43,6 +51,14 @@ export class CodeClimateConverter extends Converter {
       };
       qa_CodeQuality.repository = qb.ref({
         vcs_Repository: repoInfo,
+      });
+      qa_CodeQuality.commit = qb.ref({
+        vcs_Commit: {
+          sha: data.git.head,
+          repository: qb.ref({
+            vcs_Repository: repoInfo,
+          }),
+        },
       });
     }
 
