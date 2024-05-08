@@ -33,6 +33,9 @@ COPY --chown=node:node --from=builder /app/bin ./bin
 COPY --chown=node:node --from=builder /app/lib ./lib
 COPY --chown=node:node --from=builder /app/node_modules ./node_modules
 
+# Allow executing the binary
+RUN chmod +x ./bin/faros-scan-result-reporter
+
 # We use tini so that node process does not run as PID 1
 # as doing so causes it to ignore certains signals like SIGINT.
 
