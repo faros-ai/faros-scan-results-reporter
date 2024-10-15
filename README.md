@@ -1,6 +1,6 @@
 # Scan Results Reporter
 
-CLI for parsing &amp; uploading code scan results ([semgrep](https://github.com/semgrep/semgrep) etc.) to Faros AI API
+CLI for parsing &amp; uploading code scan results ([Semgrep](https://github.com/semgrep/semgrep), [CodeClimate](https://docs.codeclimate.com/docs/configuring-test-coverage) etc.) to Faros AI API
 
 ## Usage
 
