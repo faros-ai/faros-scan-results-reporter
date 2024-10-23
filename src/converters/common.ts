@@ -28,7 +28,7 @@ interface CodeCoverageMutationParams {
 }
 
 export function createCodeCoveragePercentMutations(
-  params: CodeCoverageMutationParams
+  params: CodeCoverageMutationParams,
 ): Array<Mutation> {
   const { coverageValue, commitSha, createdAt, config, qb } = params;
   const mutations = [];
@@ -103,7 +103,9 @@ export function createCodeCoveragePercentMutations(
     };
 
     mutations.push(qb.upsert({ vcs_Branch: branch }));
-    mutations.push(qb.upsert({ vcs_BranchCommitAssociation: branchCommitAssociation }));
+    mutations.push(
+      qb.upsert({ vcs_BranchCommitAssociation: branchCommitAssociation }),
+    );
   }
 
   return mutations;

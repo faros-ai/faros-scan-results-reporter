@@ -68,7 +68,7 @@ export class SemgrepConverter extends Converter {
   convert(
     data: SemgrepScanOutput,
     config: Config,
-    qb: QueryBuilder
+    qb: QueryBuilder,
   ): Array<Mutation> {
     const mutations = [];
 
@@ -87,7 +87,7 @@ export class SemgrepConverter extends Converter {
       if (result.extra?.metadata?.category === ScanResultCategory.Security) {
         qa_CodeQuality.vulnerabilities.value = addNtoString(
           qa_CodeQuality.vulnerabilities.value,
-          1
+          1,
         );
       }
     }

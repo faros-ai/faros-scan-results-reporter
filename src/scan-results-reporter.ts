@@ -6,8 +6,8 @@ import { VError } from 'verror';
 
 import { SemgrepConverter } from './converters';
 import { CodeClimateConverter } from './converters/codeclimate';
-import { IstanbulConverter } from './converters/istanbul';
 import { Config } from './converters/common';
+import { IstanbulConverter } from './converters/istanbul';
 
 const MUTATION_BATCH_SIZE = 1000;
 
@@ -79,7 +79,7 @@ export class ScanResultsReporter {
                 const msg = `Failed to report scan results batch. Error: ${err.message}.${response}`;
                 throw new VError(msg);
               }
-            })
+            }),
           );
         }
       }
@@ -94,7 +94,7 @@ export class ScanResultsReporter {
 
   private *getMutationBatches(
     data: any,
-    config: ScanResultsReporterConfig
+    config: ScanResultsReporterConfig,
   ): Generator<Array<Mutation>> {
     let mutations = [];
 
@@ -135,21 +135,21 @@ export class ScanResultsReporter {
         mutations = new CodeClimateConverter().convert(
           data,
           converterConf,
-          this.qb
+          this.qb,
         );
         break;
       case ScanTool.Semgrep:
         mutations = new SemgrepConverter().convert(
           data,
           converterConf,
-          this.qb
+          this.qb,
         );
         break;
       case ScanTool.Istanbul:
         mutations = new IstanbulConverter().convert(
           data,
           converterConf,
-          this.qb
+          this.qb,
         );
         break;
       default:
