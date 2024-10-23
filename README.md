@@ -1,6 +1,6 @@
 # Scan Results Reporter
 
-CLI for parsing &amp; uploading code scan results ([Semgrep](https://github.com/semgrep/semgrep), [CodeClimate](https://docs.codeclimate.com/docs/configuring-test-coverage) etc.) to Faros AI API
+CLI for parsing &amp; uploading code scan results ([Semgrep](https://github.com/semgrep/semgrep), [CodeClimate](https://docs.codeclimate.com/docs/configuring-test-coverage), [Istanbul](https://istanbul.js.org/docs/advanced/alternative-reporters/#json-summary)) to Faros AI API
 
 ## Usage
 
@@ -24,7 +24,9 @@ $ ./bin/faros-scan-result-reporter /path/to/results.* \
   --repository '<repository>' \
   --organization '<organization>' \
   --source '<source>' \
-  --pull-request 123
+  --pull-request 123 \
+  --commit '<sha>' \
+  --branch '<branch>'
 ```
 Or with Docker: 
 ```
