@@ -20,7 +20,7 @@ $ ./bin/faros-scan-result-reporter /path/to/results.* \
 
 $ ./bin/faros-scan-result-reporter /path/to/results.* \
   -k $FAROS_API_KEY \
-  --tool codeclimate \
+  --tool istanbul \
   --repository '<repository>' \
   --organization '<organization>' \
   --source '<source>' \
