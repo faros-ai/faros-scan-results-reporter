@@ -91,7 +91,7 @@ export function createCodeCoveragePercentMutations(
   }
 
   mutations.push(qb.upsert({ qa_CodeQuality }));
-  if (config.branch && commitSha) {
+  if (config.branch && commitSha && repo) {
     const branch = {
       name: config.branch,
       repository: qb.ref({
