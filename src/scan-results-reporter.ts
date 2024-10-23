@@ -7,12 +7,14 @@ import { VError } from 'verror';
 import { SemgrepConverter } from './converters';
 import { CodeClimateConverter } from './converters/codeclimate';
 import { Config } from './converters/common';
+import { IstanbulConverter } from './converters/istanbul';
 
 const MUTATION_BATCH_SIZE = 1000;
 
 export enum ScanTool {
   CodeClimate = 'codeclimate',
   Semgrep = 'semgrep',
+  Istanbul = 'istanbul',
 }
 
 export type ScanResultsReporterConfig = {
@@ -22,12 +24,14 @@ export type ScanResultsReporterConfig = {
   readonly origin: string;
   readonly tool: ScanTool;
   readonly scannedAt: string;
-  readonly vcsPullRequest?: number;
-  readonly vcsRepository?: string;
-  readonly vcsOrganization?: string;
-  readonly vcsSource?: string;
-  readonly computeApplication?: string;
-  readonly computeApplicationPlatform?: string;
+  readonly pullRequest?: number;
+  readonly repository?: string;
+  readonly organization?: string;
+  readonly source?: string;
+  readonly commit?: string;
+  readonly branch?: string;
+  readonly application?: string;
+  readonly applicationPlatform?: string;
   readonly debug: boolean;
   readonly dryRun: boolean;
   readonly concurrency: number;
@@ -75,7 +79,7 @@ export class ScanResultsReporter {
                 const msg = `Failed to report scan results batch. Error: ${err.message}.${response}`;
                 throw new VError(msg);
               }
-            })
+            }),
           );
         }
       }
@@ -90,7 +94,7 @@ export class ScanResultsReporter {
 
   private *getMutationBatches(
     data: any,
-    config: any
+    config: ScanResultsReporterConfig,
   ): Generator<Array<Mutation>> {
     let mutations = [];
 
@@ -122,6 +126,8 @@ export class ScanResultsReporter {
       pullRequest: config.pullRequest,
       appInfo,
       createdAt: config.scannedAt,
+      commit: config.commit,
+      branch: config.branch,
     };
 
     switch (config.tool) {
@@ -129,14 +135,21 @@ export class ScanResultsReporter {
         mutations = new CodeClimateConverter().convert(
           data,
           converterConf,
-          this.qb
+          this.qb,
         );
         break;
       case ScanTool.Semgrep:
         mutations = new SemgrepConverter().convert(
           data,
           converterConf,
-          this.qb
+          this.qb,
+        );
+        break;
+      case ScanTool.Istanbul:
+        mutations = new IstanbulConverter().convert(
+          data,
+          converterConf,
+          this.qb,
         );
         break;
       default:

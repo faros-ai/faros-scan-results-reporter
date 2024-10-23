@@ -43,7 +43,7 @@ describe('CodeClimateConverter', () => {
     const result = converter.convert(
       data,
       config,
-      new QueryBuilder('my-origin')
+      new QueryBuilder('my-origin'),
     );
     expect(result).toMatchSnapshot();
   });
