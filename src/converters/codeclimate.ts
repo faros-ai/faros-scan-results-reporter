@@ -22,6 +22,7 @@ export class CodeClimateConverter extends Converter {
     }
     const coverageValue = data.covered_percent;
     const commitSha = data.git.head;
+    const branch = config.branch;
     const createdAt = data?.git?.committed_at
       ? new Date(data.git.committed_at * 1000).toISOString()
       : config.createdAt;

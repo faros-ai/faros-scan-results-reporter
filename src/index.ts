@@ -74,6 +74,14 @@ export function mainCommand(): Command {
     Utils.parseIntegerPositive
   );
   cmd.option(
+    '--commit <sha>',
+    'The commit SHA of the code that was scanned'
+  );
+  cmd.option(
+    '--branch <branch>',
+    'The branch of the code that was scanned'
+  );
+  cmd.option(
     '--application <application>',
     'The name of the application that the code represents'
   );

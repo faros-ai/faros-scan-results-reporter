@@ -15,18 +15,20 @@ export interface Config {
     readonly platform: string;
   };
   readonly createdAt: string;
+  readonly commit?: string;
+  readonly branch?: string;
 }
 
 interface CodeCoverageMutationParams {
   coverageValue: number;
-  commitSha: string;
+  commitSha?: string;
   createdAt: string;
   config: Config;
   qb: QueryBuilder;
 }
 
 export function createCodeCoveragePercentMutations(
-  params: CodeCoverageMutationParams,
+  params: CodeCoverageMutationParams
 ): Array<Mutation> {
   const { coverageValue, commitSha, createdAt, config, qb } = params;
   const mutations = [];
@@ -56,14 +58,16 @@ export function createCodeCoveragePercentMutations(
     qa_CodeQuality.repository = qb.ref({
       vcs_Repository: repo,
     });
-    qa_CodeQuality.commit = qb.ref({
-      vcs_Commit: {
-        sha: commitSha,
-        repository: qb.ref({
-          vcs_Repository: repo,
-        }),
-      },
-    });
+    if (commitSha) {
+      qa_CodeQuality.commit = qb.ref({
+        vcs_Commit: {
+          sha: commitSha,
+          repository: qb.ref({
+            vcs_Repository: repo,
+          }),
+        },
+      });
+    }
   }
 
   if (config.pullRequest && repo) {
@@ -87,6 +91,31 @@ export function createCodeCoveragePercentMutations(
   }
 
   mutations.push(qb.upsert({ qa_CodeQuality }));
+  if (config.branch && commitSha) {
+    const branch = {
+      name: config.branch,
+      repository: qb.ref({
+        vcs_Repository: repo,
+      }),
+    };
+
+    const branchCommitAssociation = {
+      commit: qb.ref({
+        vcs_Commit: {
+          sha: commitSha,
+          repository: qb.ref({
+            vcs_Repository: repo,
+          }),
+        },
+      }),
+      branch: qb.ref({
+        vcs_Branch: branch,
+      }),
+    };
+
+    mutations.push(qb.upsert({ vcs_Branch: branch }));
+    mutations.push(qb.upsert({ vcs_BranchCommitAssociation: branchCommitAssociation }));
+  }
 
   return mutations;
 }
