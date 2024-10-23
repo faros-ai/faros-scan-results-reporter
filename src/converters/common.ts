@@ -45,6 +45,7 @@ export function createCodeCoveragePercentMutations(
   };
 
   let repoRef;
+  let commitRef;
   if (config.repoInfo) {
     repoRef = qb.ref({
       vcs_Repository: {
@@ -59,12 +60,13 @@ export function createCodeCoveragePercentMutations(
     });
     qa_CodeQuality.repository = repoRef;
     if (commitSha) {
-      qa_CodeQuality.commit = qb.ref({
+      commitRef = qb.ref({
         vcs_Commit: {
           sha: commitSha,
           repository: repoRef,
         },
       });
+      qa_CodeQuality.commit = commitRef;
     }
   }
 
@@ -87,19 +89,14 @@ export function createCodeCoveragePercentMutations(
   }
 
   mutations.push(qb.upsert({ qa_CodeQuality }));
-  if (config.branch && commitSha && repoRef) {
+  if (config.branch && commitRef && repoRef) {
     const branch = {
       name: config.branch,
       repository: repoRef,
     };
 
     const branchCommitAssociation = {
-      commit: qb.ref({
-        vcs_Commit: {
-          sha: commitSha,
-          repository: repoRef,
-        },
-      }),
+      commit: commitRef,
       branch: qb.ref({
         vcs_Branch: branch,
       }),
