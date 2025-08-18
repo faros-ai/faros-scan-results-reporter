@@ -27,12 +27,12 @@
     "url": "https://github.com/faros-ai/faros-scan-results-reporter/issues"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
     "commander": "^9.3.0",
-    "faros-js-client": "^0.4.6",
+    "faros-js-client": "^0.7.7",
     "luxon": "^3.4.4",
     "p-limit": "^3.1.0",
     "pino": "^8.11.0",

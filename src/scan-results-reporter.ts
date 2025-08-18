@@ -49,7 +49,6 @@ export class ScanResultsReporter {
     this.faros = new FarosClient({
       apiKey: this.config.apiKey,
       url: this.config.url,
-      useGraphQLV2: true,
     });
     this.qb = new QueryBuilder(this.config.origin);
   }
