@@ -47,4 +47,4 @@ jobs:
         with:
           docker-image: ${{ env.VERSION_TAG }}
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}      
+          dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
