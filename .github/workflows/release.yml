@@ -9,6 +9,9 @@ jobs:
     name: Publish Faros Scan Results Reporter image
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      id-token: write # needed for signing the images with GitHub OIDC Token
+      contents: read
     steps:
       - name: Check out
         uses: actions/checkout@v2.3.4
@@ -38,3 +41,10 @@ jobs:
           -t $VERSION_TAG && \
           docker push $LATEST_TAG && \
           docker push $VERSION_TAG
+      
+      - name: Sign image
+        uses: faros-ai/airbyte-connectors/.github/actions/sign_image_with_cosign@3fe8e36cd116cb4ed735317c604122b7326afec5
+        with:
+          docker-image: ${{ env.VERSION_TAG }}
+          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}      
