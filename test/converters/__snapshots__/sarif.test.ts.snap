@@ -1,0 +1,644 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SarifConverter should convert data to mutations 1`] = `
+Array [
+  Object {
+    "mutation": Object {
+      "insert_qa_CodeQuality_one": Object {
+        "__args": Object {
+          "object": Object {
+            "application": Object {
+              "data": Object {
+                "name": "app-name",
+                "platform": "platform-name",
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "compute_Application_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "createdAt": "2024-03-28T16:20:05.474Z",
+            "origin": "my-origin",
+            "pullRequest": Object {
+              "data": Object {
+                "number": 123,
+                "repository": Object {
+                  "data": Object {
+                    "name": "repo-name",
+                    "organization": Object {
+                      "data": Object {
+                        "source": "source-name",
+                        "uid": "org-name",
+                      },
+                      "on_conflict": Object {
+                        "constraint": EnumType {
+                          "value": "vcs_Organization_pkey",
+                        },
+                        "update_columns": Array [
+                          EnumType {
+                            "value": "refreshedAt",
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Repository_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_PullRequest_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "repository": Object {
+              "data": Object {
+                "name": "repo-name",
+                "organization": Object {
+                  "data": Object {
+                    "source": "source-name",
+                    "uid": "org-name",
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Organization_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_Repository_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "uid": "my-uuid",
+            "vulnerabilities": Object {
+              "category": "Security",
+              "name": "vulnerabilities",
+              "type": "Int",
+              "value": "2",
+            },
+          },
+          "on_conflict": Object {
+            "constraint": EnumType {
+              "value": "qa_CodeQuality_pkey",
+            },
+            "update_columns": Array [
+              EnumType {
+                "value": "refreshedAt",
+              },
+              EnumType {
+                "value": "uid",
+              },
+              EnumType {
+                "value": "vulnerabilities",
+              },
+              EnumType {
+                "value": "createdAt",
+              },
+              EnumType {
+                "value": "repositoryId",
+              },
+              EnumType {
+                "value": "pullRequestId",
+              },
+              EnumType {
+                "value": "applicationId",
+              },
+              EnumType {
+                "value": "origin",
+              },
+            ],
+          },
+        },
+        "id": true,
+      },
+    },
+  },
+]
+`;
+
+exports[`SarifConverter should convert data without optional fields 1`] = `
+Array [
+  Object {
+    "mutation": Object {
+      "insert_qa_CodeQuality_one": Object {
+        "__args": Object {
+          "object": Object {
+            "createdAt": "2024-03-28T16:20:05.474Z",
+            "origin": "my-origin",
+            "uid": "my-uuid",
+            "vulnerabilities": Object {
+              "category": "Security",
+              "name": "vulnerabilities",
+              "type": "Int",
+              "value": "1",
+            },
+          },
+          "on_conflict": Object {
+            "constraint": EnumType {
+              "value": "qa_CodeQuality_pkey",
+            },
+            "update_columns": Array [
+              EnumType {
+                "value": "refreshedAt",
+              },
+              EnumType {
+                "value": "uid",
+              },
+              EnumType {
+                "value": "vulnerabilities",
+              },
+              EnumType {
+                "value": "createdAt",
+              },
+              EnumType {
+                "value": "origin",
+              },
+            ],
+          },
+        },
+        "id": true,
+      },
+    },
+  },
+]
+`;
+
+exports[`SarifConverter should count vulnerabilities from multiple runs 1`] = `
+Array [
+  Object {
+    "mutation": Object {
+      "insert_qa_CodeQuality_one": Object {
+        "__args": Object {
+          "object": Object {
+            "application": Object {
+              "data": Object {
+                "name": "app-name",
+                "platform": "platform-name",
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "compute_Application_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "createdAt": "2024-03-28T16:20:05.474Z",
+            "origin": "my-origin",
+            "pullRequest": Object {
+              "data": Object {
+                "number": 123,
+                "repository": Object {
+                  "data": Object {
+                    "name": "repo-name",
+                    "organization": Object {
+                      "data": Object {
+                        "source": "source-name",
+                        "uid": "org-name",
+                      },
+                      "on_conflict": Object {
+                        "constraint": EnumType {
+                          "value": "vcs_Organization_pkey",
+                        },
+                        "update_columns": Array [
+                          EnumType {
+                            "value": "refreshedAt",
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Repository_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_PullRequest_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "repository": Object {
+              "data": Object {
+                "name": "repo-name",
+                "organization": Object {
+                  "data": Object {
+                    "source": "source-name",
+                    "uid": "org-name",
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Organization_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_Repository_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "uid": "my-uuid",
+            "vulnerabilities": Object {
+              "category": "Security",
+              "name": "vulnerabilities",
+              "type": "Int",
+              "value": "3",
+            },
+          },
+          "on_conflict": Object {
+            "constraint": EnumType {
+              "value": "qa_CodeQuality_pkey",
+            },
+            "update_columns": Array [
+              EnumType {
+                "value": "refreshedAt",
+              },
+              EnumType {
+                "value": "uid",
+              },
+              EnumType {
+                "value": "vulnerabilities",
+              },
+              EnumType {
+                "value": "createdAt",
+              },
+              EnumType {
+                "value": "repositoryId",
+              },
+              EnumType {
+                "value": "pullRequestId",
+              },
+              EnumType {
+                "value": "applicationId",
+              },
+              EnumType {
+                "value": "origin",
+              },
+            ],
+          },
+        },
+        "id": true,
+      },
+    },
+  },
+]
+`;
+
+exports[`SarifConverter should handle empty results 1`] = `
+Array [
+  Object {
+    "mutation": Object {
+      "insert_qa_CodeQuality_one": Object {
+        "__args": Object {
+          "object": Object {
+            "application": Object {
+              "data": Object {
+                "name": "app-name",
+                "platform": "platform-name",
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "compute_Application_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "createdAt": "2024-03-28T16:20:05.474Z",
+            "origin": "my-origin",
+            "pullRequest": Object {
+              "data": Object {
+                "number": 123,
+                "repository": Object {
+                  "data": Object {
+                    "name": "repo-name",
+                    "organization": Object {
+                      "data": Object {
+                        "source": "source-name",
+                        "uid": "org-name",
+                      },
+                      "on_conflict": Object {
+                        "constraint": EnumType {
+                          "value": "vcs_Organization_pkey",
+                        },
+                        "update_columns": Array [
+                          EnumType {
+                            "value": "refreshedAt",
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Repository_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_PullRequest_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "repository": Object {
+              "data": Object {
+                "name": "repo-name",
+                "organization": Object {
+                  "data": Object {
+                    "source": "source-name",
+                    "uid": "org-name",
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Organization_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_Repository_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "uid": "my-uuid",
+            "vulnerabilities": Object {
+              "category": "Security",
+              "name": "vulnerabilities",
+              "type": "Int",
+              "value": "0",
+            },
+          },
+          "on_conflict": Object {
+            "constraint": EnumType {
+              "value": "qa_CodeQuality_pkey",
+            },
+            "update_columns": Array [
+              EnumType {
+                "value": "refreshedAt",
+              },
+              EnumType {
+                "value": "uid",
+              },
+              EnumType {
+                "value": "vulnerabilities",
+              },
+              EnumType {
+                "value": "createdAt",
+              },
+              EnumType {
+                "value": "repositoryId",
+              },
+              EnumType {
+                "value": "pullRequestId",
+              },
+              EnumType {
+                "value": "applicationId",
+              },
+              EnumType {
+                "value": "origin",
+              },
+            ],
+          },
+        },
+        "id": true,
+      },
+    },
+  },
+]
+`;
+
+exports[`SarifConverter should handle empty runs 1`] = `
+Array [
+  Object {
+    "mutation": Object {
+      "insert_qa_CodeQuality_one": Object {
+        "__args": Object {
+          "object": Object {
+            "application": Object {
+              "data": Object {
+                "name": "app-name",
+                "platform": "platform-name",
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "compute_Application_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "createdAt": "2024-03-28T16:20:05.474Z",
+            "origin": "my-origin",
+            "pullRequest": Object {
+              "data": Object {
+                "number": 123,
+                "repository": Object {
+                  "data": Object {
+                    "name": "repo-name",
+                    "organization": Object {
+                      "data": Object {
+                        "source": "source-name",
+                        "uid": "org-name",
+                      },
+                      "on_conflict": Object {
+                        "constraint": EnumType {
+                          "value": "vcs_Organization_pkey",
+                        },
+                        "update_columns": Array [
+                          EnumType {
+                            "value": "refreshedAt",
+                          },
+                        ],
+                      },
+                    },
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Repository_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_PullRequest_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "repository": Object {
+              "data": Object {
+                "name": "repo-name",
+                "organization": Object {
+                  "data": Object {
+                    "source": "source-name",
+                    "uid": "org-name",
+                  },
+                  "on_conflict": Object {
+                    "constraint": EnumType {
+                      "value": "vcs_Organization_pkey",
+                    },
+                    "update_columns": Array [
+                      EnumType {
+                        "value": "refreshedAt",
+                      },
+                    ],
+                  },
+                },
+              },
+              "on_conflict": Object {
+                "constraint": EnumType {
+                  "value": "vcs_Repository_pkey",
+                },
+                "update_columns": Array [
+                  EnumType {
+                    "value": "refreshedAt",
+                  },
+                ],
+              },
+            },
+            "uid": "my-uuid",
+            "vulnerabilities": Object {
+              "category": "Security",
+              "name": "vulnerabilities",
+              "type": "Int",
+              "value": "0",
+            },
+          },
+          "on_conflict": Object {
+            "constraint": EnumType {
+              "value": "qa_CodeQuality_pkey",
+            },
+            "update_columns": Array [
+              EnumType {
+                "value": "refreshedAt",
+              },
+              EnumType {
+                "value": "uid",
+              },
+              EnumType {
+                "value": "vulnerabilities",
+              },
+              EnumType {
+                "value": "createdAt",
+              },
+              EnumType {
+                "value": "repositoryId",
+              },
+              EnumType {
+                "value": "pullRequestId",
+              },
+              EnumType {
+                "value": "applicationId",
+              },
+              EnumType {
+                "value": "origin",
+              },
+            ],
+          },
+        },
+        "id": true,
+      },
+    },
+  },
+]
+`;

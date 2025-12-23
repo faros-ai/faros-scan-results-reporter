@@ -8,6 +8,7 @@ import { SemgrepConverter } from './converters';
 import { CodeClimateConverter } from './converters/codeclimate';
 import { Config } from './converters/common';
 import { IstanbulConverter } from './converters/istanbul';
+import { SarifConverter } from './converters/sarif';
 
 const MUTATION_BATCH_SIZE = 1000;
 
@@ -15,6 +16,7 @@ export enum ScanTool {
   CodeClimate = 'codeclimate',
   Semgrep = 'semgrep',
   Istanbul = 'istanbul',
+  Sarif = 'sarif',
 }
 
 export type ScanResultsReporterConfig = {
@@ -146,6 +148,13 @@ export class ScanResultsReporter {
         break;
       case ScanTool.Istanbul:
         mutations = new IstanbulConverter().convert(
+          data,
+          converterConf,
+          this.qb,
+        );
+        break;
+      case ScanTool.Sarif:
+        mutations = new SarifConverter().convert(
           data,
           converterConf,
           this.qb,
