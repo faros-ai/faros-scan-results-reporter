@@ -43,7 +43,7 @@ jobs:
           docker push $VERSION_TAG
       
       - name: Sign image
-        uses: faros-ai/airbyte-connectors/.github/actions/sign_image_with_cosign@3fe8e36cd116cb4ed735317c604122b7326afec5
+        uses: ./.github/actions/sign_image_with_cosign
         with:
           docker-image: ${{ env.VERSION_TAG }}
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
