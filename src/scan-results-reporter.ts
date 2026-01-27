@@ -4,7 +4,10 @@ import pLimit from 'p-limit';
 import { Logger } from 'pino';
 import { VError } from 'verror';
 
+import { parseStringPromise } from 'xml2js';
+
 import { SemgrepConverter } from './converters';
+import { CoberturaConverter } from './converters/cobertura';
 import { CodeClimateConverter } from './converters/codeclimate';
 import { Config } from './converters/common';
 import { IstanbulConverter } from './converters/istanbul';
@@ -17,6 +20,7 @@ export enum ScanTool {
   Semgrep = 'semgrep',
   Istanbul = 'istanbul',
   Sarif = 'sarif',
+  Cobertura = 'cobertura',
 }
 
 export type ScanResultsReporterConfig = {
@@ -64,10 +68,16 @@ export class ScanResultsReporter {
 
     for (const file of files) {
       this.log.debug('Processing scan results in file: %s', file);
-      const result = JSON.parse(fs.readFileSync(`${file}`, 'utf8'));
+      const fileContent = fs.readFileSync(`${file}`, 'utf8');
+      const result =
+        this.config.tool === ScanTool.Cobertura
+          ? await parseStringPromise(fileContent)
+          : JSON.parse(fileContent);
 
       for (const batch of this.getMutationBatches(result, this.config)) {
-        if (this.config.dryRun !== true) {
+        if (this.config.dryRun) {
+          this.log.info(JSON.stringify(batch, null, 2));
+        } else {
           workerPromises.push(
             limit(async () => {
               try {
@@ -155,6 +165,13 @@ export class ScanResultsReporter {
         break;
       case ScanTool.Sarif:
         mutations = new SarifConverter().convert(
+          data,
+          converterConf,
+          this.qb,
+        );
+        break;
+      case ScanTool.Cobertura:
+        mutations = new CoberturaConverter().convert(
           data,
           converterConf,
           this.qb,
