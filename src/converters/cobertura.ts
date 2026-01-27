@@ -8,9 +8,9 @@ export interface CoberturaReport {
   coverage: {
     $: {
       'line-rate': string;
-      'lines-covered': string;
-      'lines-valid': string;
-      timestamp: string;
+      'lines-covered'?: string;
+      'lines-valid'?: string;
+      timestamp?: string;
     };
   };
 }
@@ -29,6 +29,7 @@ export class CoberturaConverter extends Converter {
     const coverageValue = lineRate * 100;
     const commitSha = config.commit;
 
+    // Cobertura timestamps are Unix epoch seconds; convert to milliseconds for Date
     const timestamp = attrs?.timestamp;
     const createdAt = timestamp
       ? new Date(parseInt(timestamp, 10) * 1000).toISOString()

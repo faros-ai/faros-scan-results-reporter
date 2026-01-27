@@ -97,6 +97,42 @@ describe('CoberturaConverter', () => {
     expect(result).toMatchSnapshot();
   });
 
+  it('should handle missing lines-valid', () => {
+    const dataNoValid: CoberturaReport = {
+      coverage: {
+        $: {
+          'line-rate': '0.85',
+          'lines-covered': '850',
+          timestamp: '1711641605',
+        },
+      },
+    };
+    const result = converter.convert(
+      dataNoValid,
+      config,
+      new QueryBuilder('my-origin'),
+    );
+    expect(result).toMatchSnapshot();
+  });
+
+  it('should handle missing lines-covered', () => {
+    const dataNoConvered: CoberturaReport = {
+      coverage: {
+        $: {
+          'line-rate': '0.85',
+          'lines-valid': '1000',
+          timestamp: '1711641605',
+        },
+      },
+    };
+    const result = converter.convert(
+      dataNoConvered,
+      config,
+      new QueryBuilder('my-origin'),
+    );
+    expect(result).toMatchSnapshot();
+  });
+
   it('should return empty array for invalid data', () => {
     const invalidData = {};
     const minConfig: Config = {
