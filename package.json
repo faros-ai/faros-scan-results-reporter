@@ -74,5 +74,8 @@
       "printBasicPrototype": true,
       "escapeString": true
     }
+  },
+  "overrides": {
+    "lodash": "^4.17.23"
   }
 }
