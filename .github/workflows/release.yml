@@ -14,7 +14,7 @@ jobs:
       contents: read
     steps:
       - name: Check out
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
       # GITHUB_REF looks like: refs/tags/v0.2.5
       # ${GITHUB_REF:10} ignores the first 10 characters leaving v0.2.5
@@ -30,7 +30,7 @@ jobs:
           echo "VERSION_TAG=$IMAGE:$TAG_VERSION" >> "$GITHUB_ENV"
 
       - name: Docker login
-        uses: docker/login-action@v1.10.0
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
